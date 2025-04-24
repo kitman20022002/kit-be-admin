@@ -4,7 +4,6 @@ const apiRouterV1 = require('../app/routes/v1/api');
 const config = require('../app/config/app');
 const cors = require('cors');
 const helmet = require('helmet');
-const swagger = require('./swagger');
 const { errorHandler } = require('./errorHandler');
 const status = require('http-status');
 const compression = require('compression');
@@ -27,7 +26,6 @@ module.exports = () => {
   }
   app.use(helmet());
   app.use(`${config.api.prefix}/v1`, apiRouterV1);
-  swagger(app);
   app.use((err: Error, req: express.Request, res: express.Response, next: NextFunction) => {
     errorHandler.handleError(err, res);
     res.status(status.INTERNAL_SERVER_ERROR).send();
